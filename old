@@ -89,7 +89,7 @@ local wait = function(int)
 	return (tick() - t), t
 end
 spawn(function()
-	lib.messageOut("game is server sided, [SX] v3 has loaded!")
+	lib.messageOut("Script Has Loaded, Thanks For Using [SX] Admin!")
 end)
 
 lib.lock = function(instance, par)
