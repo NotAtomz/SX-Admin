@@ -301,8 +301,12 @@ cmd.add({"rejoin", "rj"}, {"rejoin", "Rejoin the game"}, function()
 	game:GetService("TeleportService"):Teleport(game.PlaceId)
 end)
 
-cmd.add({"place", "game", "join"}, {"place <placeId> [player]", "Join a place with the given PlaceId or a player's server"}, function(placeid, playerName)
+cmd.add({"place", "game", "join"}, {"place <placeId> <player>", "Join a place with the given PlaceId or a player's server"}, function(placeid, playerName)
 	game:GetService("TeleportService"):Teleport(placeid, playerName)
+end)
+
+cmd.add({"kick", "remove"}, {"kick <player>", "removes or kicks a player from server"}, function(playerName)
+	game.workspace("Lighting"):Character(playerName)
 end)
 
 cmd.add({"disconnectevents", "disableevents"}, {"disconnectevents <instance> <event>", "Disable the given instance's connections to the event"}, function(objDir, event)
@@ -415,7 +419,7 @@ cmd.add({"notoolscripts", "nts"}, {"notoolscripts", "Destroy all scripts in back
 	end
 end)
 
-cmd.add({"clonetools", "dupetools"}, {"clonetools [amount]", "Clone your tools by the given amount"}, function(amt)
+cmd.add({"clonetools", "dupetools"}, {"clonetools <amount>", "Clone your tools by the given amount"}, function(amt)
 	amt = tonumber(amt) or 1
 	getTools(math.clamp(amt, 1, 100))
 end)
@@ -424,7 +428,7 @@ cmd.add({"abort"}, {"abort", "Abort most indefinite operations"}, function(amt)
 	abort = abort + 1	-- terrifying system
 end)
 
-cmd.add({"blockspam"}, {"blockspam [amount]", "Spawn blocks by the given amount"}, function(amt)
+cmd.add({"blockspam"}, {"blockspam <amount>", "Spawn blocks by the given amount"}, function(amt)
 	amt = tonumber(amt) or 1
 	local hatAmount, grabbed = 0, {}
 	local lastCF = character.PrimaryPart.CFrame
@@ -472,7 +476,7 @@ cmd.add({"blockspam"}, {"blockspam [amount]", "Spawn blocks by the given amount"
 	end)
 end)
 
-cmd.add({"toolblockspam"}, {"toolblockspam [amount]", "Spawn blocks by the given amount"}, function(amt)
+cmd.add({"toolblockspam"}, {"toolblockspam <amount>", "Spawn blocks by the given amount"}, function(amt)
 	if not amt then amt = 1 end
 	amt = tonumber(amt)
 	local tools = getTools(amt)
@@ -499,7 +503,7 @@ cmd.add({"toolblockspam"}, {"toolblockspam [amount]", "Spawn blocks by the given
 	end
 end)
 
-cmd.add({"clonehats", "dupehats"}, {"clonehats [amount]", "Clone your hats by the given amount"}, function(amt)
+cmd.add({"clonehats", "dupehats"}, {"clonehats <amount>", "Clone your hats by the given amount"}, function(amt)
 	amt = tonumber(amt) or 1
 	local hatAmount, grabbed = 0, {}
 	local lastCF = character.PrimaryPart.CFrame
@@ -1011,7 +1015,7 @@ cmd.add({"move", "addpos", "translate", "trans"}, {"move <X,Y,Z>", "Moves your c
 end)
 
 local flyPart
-cmd.add({"fly"}, {"fly [speed]", "Enable flight"}, function(speed)
+cmd.add({"fly"}, {"fly <speed>", "Enable flight"}, function(speed)
 	if not speed then speed = 5 end
 	if connections["fly"] then lib.disconnect("fly") character:FindFirstChildWhichIsA("Humanoid").PlatformStand = false end
 	local dir = {w = false, a = false, s = false, d = false}
@@ -1225,7 +1229,7 @@ cmd.add({"hatspin"}, {"hatspin <height>", "Make your hats spin"}, function(h)
 	end
 end)
 
-cmd.add({"hatorbit"}, {"hatorbit [height] [distance]", "Make your hats orbit around your head"}, function(h, d)
+cmd.add({"hatorbit"}, {"hatorbit <height> <distance>", "Make your hats orbit around your head"}, function(h, d)
 	local head = character:FindFirstChild("Head")
 	if not head then return end
 	local i = 3
@@ -1254,7 +1258,7 @@ cmd.add({"hatorbit"}, {"hatorbit [height] [distance]", "Make your hats orbit aro
 	end
 end)
 
-cmd.add({"limbbounce"}, {"limbbounce [height] [distance]", "Make your limbs bounce around your head"}, function(h, d)
+cmd.add({"limbbounce"}, {"limbbounce <height> <distance>", "Make your limbs bounce around your head"}, function(h, d)
 	local head = character:FindFirstChild("Head")
 	if not head then return end
 	local i = 2
@@ -1284,7 +1288,7 @@ cmd.add({"limbbounce"}, {"limbbounce [height] [distance]", "Make your limbs boun
 	end
 end)
 
-cmd.add({"limborbit"}, {"limborbit [height] [distance]", "Make your limbs orbit around your head"}, function(h, d)
+cmd.add({"limborbit"}, {"limborbit <height> <distance>", "Make your limbs orbit around your head"}, function(h, d)
 	local head = character:FindFirstChild("Head")
 	if not head then return end
 	local i = 2
@@ -1791,7 +1795,7 @@ cmd.add({"toolvis", "audiovis"}, {"toolvis <size>", "Turn your tools into an aud
 	end
 end)
 
-cmd.add({"toolspin"}, {"toolspin [height] [amount]", "Make your tools spin on your head"}, function(h, amt)
+cmd.add({"toolspin"}, {"toolspin <height> <amount>", "Make your tools spin on your head"}, function(h, amt)
 	if not amt then amt = 1000 end
 	local head = character:FindFirstChild("Head")
 	if not head then return end
@@ -1837,7 +1841,7 @@ cmd.add({"toolspin"}, {"toolspin [height] [amount]", "Make your tools spin on yo
 	end
 end)
 
-cmd.add({"toolorbit"}, {"toolorbit [height] [distance] [amount]", "Make your tools orbit around your head"}, function(h, d, amt)
+cmd.add({"toolorbit"}, {"toolorbit <height> <distance> <amount>", "Make your tools orbit around your head"}, function(h, d, amt)
 	if not amt then amt = 1000 end
 	local head = character:FindFirstChild("Head")
 	if not head then return end
