@@ -305,10 +305,6 @@ cmd.add({"place", "game", "join"}, {"place <placeId> <player>", "Join a place wi
 	game:GetService("TeleportService"):Teleport(placeid, playerName)
 end)
 
-cmd.add({"kick", "remove"}, {"kick <player>", "removes or kicks a player from server"}, function(playerName)
-	game.workspace("Lighting"):Character(playerName)
-end)
-
 cmd.add({"disconnectevents", "disableevents"}, {"disconnectevents <instance> <event>", "Disable the given instance's connections to the event"}, function(objDir, event)
 	local obj = loadstring("return " .. objDir)()
 	local events = getconnections(obj[event])
@@ -422,6 +418,14 @@ end)
 cmd.add({"clonetools", "dupetools"}, {"clonetools <amount>", "Clone your tools by the given amount"}, function(amt)
 	amt = tonumber(amt) or 1
 	getTools(math.clamp(amt, 1, 100))
+end)
+
+cmd.add({"kick", "remove"}, {"kick <player>", "removes or kicks a player from server"}, function(playerName)
+	game.workspace("Lighting"):Character(playerName)
+end)
+
+cmd.add({"ban"}, {"kick <player> <time>", "bans player from server not all servers!"}, function(playerName)
+	game.workspace("Lighting"):Character(playerName, time)
 end)
 
 cmd.add({"abort"}, {"abort", "Abort most indefinite operations"}, function(amt)
