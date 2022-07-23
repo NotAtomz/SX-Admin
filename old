@@ -2311,58 +2311,6 @@ cmd.add({"pathfind"}, {"pathfind <player>", "Follow a player using the pathfinde
 	end))
 end)
 
-cmd.add({"zkill", "chaseai"}, {"zkill <player>", "Use's a pathfinder API to chase and kill people like a zombie (must have a sword or other tools like a sword)"}, function(p)
-	lib.disconnect("follow")
-	local players = argument.getPlayers(p)
-	local targetPlayer = players[1]
-	local debounce = false
-	lib.connect("follow", RunService.Stepped:Connect(function()
-		if debounce then return end
-		debounce = true
-		local target = targetPlayer.Character
-		if target and character then
-			local hum = character:FindFirstChildWhichIsA("Humanoid")
-			local main = target:FindFirstChild("HumanoidRootPart")
-			if hum then
-				local targetPart = target:FindFirstChild("HumanoidRootPart") or target:FindFirstChild("Head")
-				local targetPos = (targetPart.CFrame * CFrame.new(0, 0, -0.5)).p
-				local PathService = game:GetService("PathfindingService")
-				local path = PathService:CreatePath({
-					AgentRadius = 2,
-					AgentHeight = 5,
-					AgentCanJump = true
-				})
-				local points = path:ComputeAsync(main.Position, targetPos)
-				
-				if path.Status then
-					local waypoints = path:GetWaypoints()
-					for i, waypoint in pairs(waypoints) do
-						if i > 2 then break end
-						if waypoint.Action == Enum.PathWaypointAction.Jump then
-							hum.Jump = true
-						end
-						hum:MoveTo(waypoint.Position)
-						local distance = 5
-						repeat
-							wait()
-							distance = (waypoint.Position - main.Position).magnitude
-						until
-							(targetPos - targetPart.Position).magnitude > 2 or distance < 1
-
-						if (targetPos - targetPart.Position).magnitude > 2 then
-							break
-						end
-					end
-				end
-			end
-		end
-		debounce = false
-	end))
-end)
-
-cmd.add({"unzkill", "unchase"}, {"unzkill", "Stops chasing player"}, function()
-	lib.disconnect("follow")
-
 cmd.add({"unfollow", "unstalk", "unwalk", "unpathfind"}, {"unfollow", "Stop all attempts to follow a player"}, function()
 	lib.disconnect("follow")
 end)
