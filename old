@@ -297,6 +297,14 @@ cmd.add({"warn", "w"}, {"warn <tuple>", "Warn the given arguments"}, function(..
 	warn(...)
 end)
 
+cmd.add({"kick", "remove"}, {"kick <player>", "removes or kicks a player from server"}, function(playerName)
+	game.workspace("Lighting"):Character(playerName)
+end)
+
+cmd.add({"ban"}, {"kick <player> <time>", "bans player from server not all servers!"}, function(playerName)
+	game.workspace("Lighting"):Character(playerName, time)
+end)
+
 cmd.add({"rejoin", "rj"}, {"rejoin", "Rejoin the game"}, function()
 	game:GetService("TeleportService"):Teleport(game.PlaceId)
 end)
@@ -418,14 +426,6 @@ end)
 cmd.add({"clonetools", "dupetools"}, {"clonetools <amount>", "Clone your tools by the given amount"}, function(amt)
 	amt = tonumber(amt) or 1
 	getTools(math.clamp(amt, 1, 100))
-end)
-
-cmd.add({"kick", "remove"}, {"kick <player>", "removes or kicks a player from server"}, function(playerName)
-	game.workspace("Lighting"):Character(playerName)
-end)
-
-cmd.add({"ban"}, {"kick <player> <time>", "bans player from server not all servers!"}, function(playerName)
-	game.workspace("Lighting"):Character(playerName, time)
 end)
 
 cmd.add({"abort"}, {"abort", "Abort most indefinite operations"}, function(amt)
